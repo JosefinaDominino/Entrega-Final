@@ -1,0 +1,89 @@
+{% extends 'head.html' %} {% load static %} {% block titulo %}
+<title>IngE · Mensajes Recibidos</title>
+{% endblock %} {% block encabezado %}
+<header>
+  <h1 class="site-heading text-center text-faded d-none d-lg-block">
+    <span class="site-heading-upper text-primary mb-3">Mensajería</span>
+    <span class="site-heading-lower">IngE</span>
+  </h1>
+</header>
+{% endblock %} {% block principal %}
+<main>
+  <section class="page-section clearfix">
+    <div class="container">
+      <div
+        class="intro-text left-0 text-center bg-faded p-5 rounded"
+        style="
+          background-color: rgba(230, 167, 86, 0.9);
+          margin-top: 0px;
+          max-width: auto;
+        "
+      >
+        <div
+          style="
+            display: flex;
+            flex-direction: row;
+            justify-content: left;
+            margin-bottom: 40px;
+          "
+        >
+          <a
+            style="
+              color: black;
+              display: flex;
+              justify-content: center;
+              margin: auto 10px;
+              border: 2px solid black;
+              padding: 2px;
+              width: 160px;
+            "
+            href="{% url 'enviar' %}"
+            >Enviar mensaje</a
+          >
+          <a
+            style="
+              color: black;
+              display: flex;
+              justify-content: center;
+              margin: auto 10px;
+              border: 2px solid black;
+              padding: 2px;
+              width: 190px;
+            "
+            href="{% url 'enviado' %}"
+            >Mensajes enviados</a
+          >
+        </div>
+        {% if mensajes != 0 %}
+        <h2 style="margin: 20px 10px">MENSAJES RECIBIDOS</h2>
+        {% for mensaje in mensajes %}
+        <div style="display: flex; justify-content: left">
+          <div
+            style="
+              display: flex;
+              flex-direction: column;
+              border: 3px solid black;
+              margin: 0px 0px 10px 10px;
+            "
+          >
+            <div style="margin: 10px">
+              <div>
+                <h2>De: {{ mensaje.de }}</h2>
+                <h4 style="font-weight: normal">
+                  {{ mensaje.contenido|safe }}
+                </h4>
+                <p style="font-weight: normal; margin: 0px">
+                  {{ mensaje.creacion }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %} {% else %}
+        <h2 style="margin: 20px 10px; padding: 10px">Aún no tienes mensajes</h2>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock %}

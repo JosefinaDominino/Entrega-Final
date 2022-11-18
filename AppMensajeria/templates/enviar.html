@@ -1,0 +1,72 @@
+{% extends 'head.html' %} {% load static %} {% block titulo %}
+<title>IngE · Enviar Mensaje</title>
+{% endblock %} {% block encabezado %}
+<header>
+  <h1 class="site-heading text-center text-faded d-none d-lg-block">
+    <span class="site-heading-upper text-primary mb-3">Mensajería</span>
+    <span class="site-heading-lower">IngE</span>
+  </h1>
+</header>
+{% endblock %} {% block principal %}
+<main>
+  <section class="page-section clearfix">
+    <div class="container">
+      <div
+        class="intro-text left-0 text-center bg-faded p-5 rounded"
+        style="
+          background-color: rgba(230, 167, 86, 0.9);
+          margin-top: 0px;
+          max-width: auto;
+        "
+      >
+        <div
+          style="
+            display: flex;
+            flex-direction: row;
+            justify-content: left;
+            margin-bottom: 50px;
+          "
+        >
+          <a
+            style="
+              color: black;
+              display: flex;
+              justify-content: center;
+              margin: auto 10px;
+              border: 2px solid black;
+              padding: 2px;
+              width: 200px;
+            "
+            href="{% url 'mensajeria' %}"
+            >Mensajes recibidos</a
+          >
+          <a
+            style="
+              color: black;
+              display: flex;
+              justify-content: center;
+              margin: auto 10px;
+              border: 2px solid black;
+              padding: 2px;
+              width: 200px;
+            "
+            href="{% url 'enviado' %}"
+            >Mensajes enviados</a
+          >
+        </div>
+        <form
+          action="{% url 'enviar' %}"
+          method="POST"
+          enctype="multipart/form-data"
+        >
+          {% csrf_token %}
+          <table>
+            {{ miFormulario.media }} {{ miFormulario.as_table }}
+          </table>
+          <button type="submit">ENVIAR</button>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'head.html' %} {% load static %} {% block titulo %}
+<title>IngE · Home</title>
+{% endblock %} {% block encabezado %}
+<header>
+  <h1 class="site-heading text-center text-faded d-none d-lg-block">
+    <span class="site-heading-upper text-primary mb-3"
+      >Un blog para ingenieros</span
+    >
+    <span class="site-heading-lower">IngE</span>
+  </h1>
+</header>
+{% endblock %} {% block principal %}
+<section class="page-section clearfix">
+  <div class="container">
+    <div
+      class="intro-text left-0 text-center bg-faded p-5 rounded"
+      style="background-color: rgba(230, 167, 86, 0.9); margin-top: 0px; max-width: auto"
+    >
+      {% for posteo in posteo_list %}
+      <div style="display: flex; flex-direction: column; justify-content: left">
+        <div
+          style="
+            display: flex;
+            flex-direction: column;
+            border: 3px solid black;
+            margin: 0px 0px 10px 10px;
+          "
+        >
+          <a href="{% url 'detallePost' posteo.slug %}">
+            <div style="display: flex; flex-direction: row; color: black">
+              <div>
+                <h2>{{ posteo.titulo }}</h2>
+                <h3 style="font-weight: normal">{{ posteo.subtitulo }}</h3>
+                <h4 style="font-weight: normal">
+                  {{ posteo.autor }} | {{ posteo.creacion }}
+                </h4>
+              </div>
+              <div>
+                <img
+                  style="height: 125px; margin: 10px 10px 10px 50px"
+                  src="{{ posteo.imagen.url }}"
+                />
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+      {% empty %}
+      <h2 style="margin: 0px; padding: 10px">
+        Aún no hay posts, se el primero!
+      </h2>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

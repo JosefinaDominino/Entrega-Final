@@ -1,0 +1,128 @@
+{% extends 'head.html' %} {% load static %} {% block titulo %}
+<title>IngE · Perfil</title>
+{% endblock %} {% block encabezado %}
+<header>
+  <h1 class="site-heading text-center text-faded d-none d-lg-block">
+    <span class="site-heading-upper text-primary mb-3">Perfil</span>
+    <span class="site-heading-lower">IngE</span>
+  </h1>
+</header>
+{% endblock %} {% block principal %}
+<main>
+  <div style="display: flex; justify-content: center; margin-bottom: 10px">
+    <div
+      class="col-md-8 card mb-4 mt-3 left top"
+      style="
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background-color: rgba(230, 167, 86, 0.9);
+      "
+    >
+      <div style="display: flex; justify-content: center; margin: 10px">
+        {% if imagen %}
+        <img style="height: 150px; width: 150px" src="{{ imagen }}" />
+        {% else %}
+        <img
+          style="height: 150px; width: 150px"
+          src="{% static 'assets/img/avatar/defaultAvatar.jpg' %}"
+        />
+        {% endif %}
+      </div>
+      <h2 style="text-align: center">{{ user.username }}</h2>
+      <div style="margin: 20px 0px">
+        <h3 style="font-weight: normal; text-align: center">
+          Nombre: {{ user.first_name }}
+        </h3>
+        <h3 style="font-weight: normal; text-align: center">
+          Apellido: {{ user.last_name }}
+        </h3>
+        <h3 style="font-weight: normal; text-align: center">
+          E-mail: {{ user.email }}
+        </h3>
+      </div>
+      <a
+        href="{% url 'editarPerfil' %}"
+        style="
+          color: black;
+          cursor: pointer;
+          border: 2px solid black;
+          text-align: center;
+          margin-bottom: 10px;
+        "
+        >EDITAR PERFIL</a
+      >
+      {% if posteos != 0 %}
+      <h3
+        style="
+          font-weight: normal;
+          text-align: center;
+          margin: 50px 0px 30px 0px;
+        "
+      >
+        TUS POSTS
+      </h3>
+      {% for post in posteos %}
+      <div style="display: flex; flex-direction: column, justify-content: left">
+        <div
+          style="
+            display: flex;
+            flex-direction: column;
+            border: 3px solid black;
+            margin: 0px 0px 10px 10px;
+          "
+        >
+          <a href="{% url 'detallePost' post.slug %}">
+            <div style="display: flex; flex-direction: row; color: black">
+              <div>
+                <h2>{{ post.titulo }}</h2>
+                <h3 style="font-weight: normal">{{ post.subtitulo }}</h3>
+                <h4 style="font-weight: normal">
+                  {{ post.autor }} | {{ post.creacion }}
+                </h4>
+              </div>
+              <div>
+                <img
+                  style="height: 125px; margin: 10px 10px 10px 50px"
+                  src="{{ post.imagen.url }}"
+                />
+              </div>
+            </div>
+          </a>
+          <div
+            style="display: flex; flex-direction: row, justify-content: left; margin-bottom: 10px"
+          >
+            <a
+              style="
+                color: black;
+                display: flex;
+                justify-content: center;
+                margin: auto 10px;
+                border: 2px solid black;
+                padding: 2px;
+                width: 150px;
+              "
+              href="{% url 'actualizarPost' post.slug %}"
+              >Editar Post</a
+            >
+            <a
+              style="
+                color: black;
+                display: flex;
+                justify-content: center;
+                margin: auto 10px;
+                border: 2px solid black;
+                padding: 2px;
+                width: 150px;
+              "
+              href="{% url 'borrarPost' post.slug %}"
+              >Eliminar Post</a
+            >
+          </div>
+        </div>
+      </div>
+      {% endfor %} {% endif %}
+    </div>
+  </div>
+</main>
+{% endblock %}

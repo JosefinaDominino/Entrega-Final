@@ -1,0 +1,36 @@
+{% extends 'head.html' %} {% load static %} {% block titulo %}
+<title>IngE · Borrar Post</title>
+{% endblock %} {% block encabezado %}
+<header>
+  <h1 class="site-heading text-center text-faded d-none d-lg-block">
+    <span class="site-heading-upper text-primary mb-3">Borrar post</span>
+    <span class="site-heading-lower">IngE</span>
+  </h1>
+</header>
+{% endblock %} {% block principal %}
+<main style="display: flex; justify-content: center">
+  <section class="page-section clearfix">
+    <div class="container">
+      <div
+        class="intro-text left-0 text-center bg-faded p-5 rounded"
+        style="
+          background-color: rgba(230, 167, 86, 0.9);
+          margin-top: 0px;
+          max-width: auto;
+        "
+      >
+        <form
+          style="display: flex; flex-direction: column; justify-content: center"
+          method="post"
+        >
+          {% csrf_token %}
+          <p>¿Estás seguro que quieres eliminar el post "{{ object }}"?</p>
+          <button style="margin: 20px 0px" type="submit">
+            ELIMINAR PERMANENTEMENTE
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock %}
